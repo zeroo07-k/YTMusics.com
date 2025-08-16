@@ -1,0 +1,422 @@
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Mini Spotify - Descarga tus canciones
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-6 py-4 bg-gray-800">
+   <div class="flex items-center space-x-4">
+    <i class="fab fa-spotify text-green-500 text-3xl">
+    </i>
+    <span class="text-2xl font-bold tracking-wide">
+     Mini Spotify
+    </span>
+   </div>
+   <div class="hidden md:flex space-x-6 text-gray-300 font-semibold">
+    <a class="hover:text-white transition" href="#">
+     Inicio
+    </a>
+    <a class="hover:text-white transition" href="#">
+     Buscar
+    </a>
+    <a class="hover:text-white transition" href="#">
+     Tu Biblioteca
+    </a>
+   </div>
+   <div class="md:hidden">
+    <button class="focus:outline-none" id="menu-btn">
+     <i class="fas fa-bars text-2xl">
+     </i>
+    </button>
+   </div>
+  </nav>
+  <!-- Mobile menu -->
+  <div class="hidden bg-gray-800 px-6 py-4 space-y-4 md:hidden" id="mobile-menu">
+   <a class="block text-gray-300 font-semibold hover:text-white transition" href="#">
+    Inicio
+   </a>
+   <a class="block text-gray-300 font-semibold hover:text-white transition" href="#">
+    Buscar
+   </a>
+   <a class="block text-gray-300 font-semibold hover:text-white transition" href="#">
+    Tu Biblioteca
+   </a>
+  </div>
+  <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
+   <!-- Sidebar -->
+   <aside class="hidden md:flex flex-col w-64 bg-gray-800 p-6 space-y-8 overflow-y-auto">
+    <div class="flex items-center space-x-3">
+     <img alt="Logo de Mini Spotify en fondo verde" class="rounded-full" height="50" src="https://storage.googleapis.com/a1aa/image/3f68264e-07a8-47a2-9754-b524d8413b8c.jpg" width="50"/>
+     <h2 class="text-xl font-bold text-white">
+      Mini Spotify
+     </h2>
+    </div>
+    <nav class="flex flex-col space-y-4 text-gray-300 font-semibold">
+     <a class="hover:text-white transition flex items-center space-x-3" href="#">
+      <i class="fas fa-home text-green-500">
+      </i>
+      <span>
+       Inicio
+      </span>
+     </a>
+     <a class="hover:text-white transition flex items-center space-x-3" href="#">
+      <i class="fas fa-search text-green-500">
+      </i>
+      <span>
+       Buscar
+      </span>
+     </a>
+     <a class="hover:text-white transition flex items-center space-x-3" href="#">
+      <i class="fas fa-book-open text-green-500">
+      </i>
+      <span>
+       Tu Biblioteca
+      </span>
+     </a>
+    </nav>
+    <div>
+     <h3 class="text-gray-400 uppercase tracking-widest text-xs mb-3">
+      Playlists
+     </h3>
+     <ul class="space-y-2 text-gray-300 text-sm overflow-y-auto max-h-48">
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Favoritos
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Lo Más Escuchado
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Nuevos Lanzamientos
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Pop Hits
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Rock Clásico
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Jazz &amp; Blues
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Electrónica
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Indie
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Reggaeton
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-white transition block" href="#">
+        Música Latina
+       </a>
+      </li>
+     </ul>
+    </div>
+   </aside>
+   <!-- Main content -->
+   <section class="flex-grow p-6 overflow-y-auto">
+    <h1 class="text-3xl font-bold mb-6">
+     Tus Canciones
+    </h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+     <!-- Song Card 1 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración abstracta en tonos azules y verdes" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/5c93d946-d46e-4b47-c337-967b66f653c1.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Canción del Amanecer
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Aurora Boreal
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3', 'Cancion_del_Amanecer.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 2 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con paisaje montañoso al atardecer con tonos naranjas y morados" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/f0d703c2-9ca1-4f35-db24-236bb8ec62d1.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Noches de Verano
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Luna Azul
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_1MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_1MG.mp3', 'Noches_de_Verano.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 3 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración de ciudad futurista en tonos neón rosa y azul" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/41e7d38d-35ec-43ca-47d3-50be53d8117a.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Ritmos Urbanos
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: DJ Neon
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_2MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_2MG.mp3', 'Ritmos_Urbanos.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 4 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración de bosque otoñal con hojas naranjas y amarillas" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/5c1e0d32-5c76-41c2-37f2-25ca157bedc7.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Melodías del Bosque
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Eco Sonoro
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3', 'Melodias_del_Bosque.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 5 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración minimalista de guitarra acústica sobre fondo beige" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/0f83b700-392b-4c59-b01e-f781e6959039.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Cuerdas y Susurros
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Alma Acústica
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3', 'Cuerdas_y_Susurros.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 6 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración de playa tropical al atardecer con palmeras y mar" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/c3e9ee38-a06c-48b8-bd1f-7b81bcf88e2f.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Brisa Tropical
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Sol y Mar
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_1MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_1MG.mp3', 'Brisa_Tropical.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 7 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración de galaxia y estrellas en tonos morados y azules" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/57ccdb18-3fa3-4250-5a99-738955a13ccd.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Viaje Cósmico
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Estrella Fugaz
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_2MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_2MG.mp3', 'Viaje_Cosmico.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+     <!-- Song Card 8 -->
+     <article class="bg-gray-800 rounded-lg p-4 flex flex-col">
+      <img alt="Portada del álbum con ilustración de ciudad nocturna con luces amarillas y azules" class="rounded-md mb-4" height="300" src="https://storage.googleapis.com/a1aa/image/050304bd-be78-4e4f-3b08-1ecbb79329cc.jpg" width="300"/>
+      <h2 class="text-lg font-semibold truncate">
+       Noches en la Ciudad
+      </h2>
+      <p class="text-gray-400 text-sm mb-2 truncate">
+       Artista: Calle 7
+      </p>
+      <audio class="w-full mb-3 rounded" controls="">
+       <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3" type="audio/mpeg"/>
+       Tu navegador no soporta el elemento de audio.
+      </audio>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2 transition" onclick="downloadSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3', 'Noches_en_la_Ciudad.mp3')">
+       <i class="fas fa-download">
+       </i>
+       <span>
+        Descargar
+       </span>
+      </button>
+     </article>
+    </div>
+   </section>
+  </main>
+  <!-- Player fixed bottom -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center justify-between px-6 py-3">
+   <div class="flex items-center space-x-4 w-1/3 min-w-[200px]">
+    <img alt="Portada pequeña de la canción actual con ilustración abstracta en tonos verdes" class="w-14 h-14 rounded-md" height="56" src="https://storage.googleapis.com/a1aa/image/b8a770ad-4d70-4a88-c119-f085e5d549d8.jpg" width="56"/>
+    <div class="flex flex-col truncate">
+     <span class="font-semibold truncate">
+      Canción del Amanecer
+     </span>
+     <span class="text-gray-400 text-sm truncate">
+      Aurora Boreal
+     </span>
+    </div>
+    <button aria-label="Agregar a favoritos" class="text-green-500 hover:text-green-400 focus:outline-none">
+     <i class="fas fa-heart">
+     </i>
+    </button>
+   </div>
+   <div class="flex flex-col items-center space-y-1 w-1/3">
+    <div class="flex items-center space-x-6">
+     <button aria-label="Repetir" class="text-gray-400 hover:text-white focus:outline-none">
+      <i class="fas fa-redo">
+      </i>
+     </button>
+     <button aria-label="Anterior" class="text-gray-400 hover:text-white focus:outline-none">
+      <i class="fas fa-step-backward">
+      </i>
+     </button>
+     <button aria-label="Reproducir/Pausar" class="bg-white text-green-600 rounded-full p-3 hover:scale-110 transition transform focus:outline-none" id="play-pause-btn">
+      <i class="fas fa-play">
+      </i>
+     </button>
+     <button aria-label="Siguiente" class="text-gray-400 hover:text-white focus:outline-none">
+      <i class="fas fa-step-forward">
+      </i>
+     </button>
+     <button aria-label="Aleatorio" class="text-gray-400 hover:text-white focus:outline-none">
+      <i class="fas fa-random">
+      </i>
+     </button>
+    </div>
+    <input aria-label="Barra de progreso de la canción" class="w-full h-1 rounded-lg bg-gray-600 accent-green-500 cursor-pointer" id="progress-bar" max="100" min="0" type="range" value="0"/>
+   </div>
+   <div class="flex items-center space-x-4 w-1/3 min-w-[200px] justify-end">
+    <button aria-label="Volumen" class="text-gray-400 hover:text-white focus:outline-none">
+     <i class="fas fa-volume-up">
+     </i>
+    </button>
+    <input aria-label="Control de volumen" class="w-24 h-1 rounded-lg bg-gray-600 accent-green-500 cursor-pointer" id="volume-control" max="100" min="0" type="range" value="50"/>
+   </div>
+  </footer>
+  <script>
+   // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Download song function
+    function downloadSong(url, filename) {
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error al descargar el archivo');
+          }
+          return response.blob();
+        })
+        .then((blob) => {
+          const urlBlob = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = urlBlob;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(urlBlob);
+          a.remove();
+        })
+        .catch((error) => {
+          alert('No se pudo descargar la canción: ' + error.message);
+        });
+    }
+
+    // Play/pause button toggle icon (dummy functionality)
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    playPauseBtn.addEventListener('click', () => {
+      const icon = playPauseBtn.querySelector('i');
+      if (icon.classList.contains('fa-play')) {
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+      } else {
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+      }
+    });
+  </script>
+ </body>
+</html>
