@@ -1,0 +1,30 @@
+{
+  "name": "whatsapp-bot-baileys",
+  "version": "1.0.0",
+  "description": "Bot modular de WhatsApp usando Baileys. Escanea QR, guarda sesión, plugins dinámicos y endpoint /health.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "baileys",
+    "md",
+    "plugin",
+    "replit"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "@adiwajshing/baileys": "^6.7.6",
+    "@hapi/boom": "^10.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 
