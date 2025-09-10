@@ -1,72 +1,71 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YTMusic Downloader</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Montserrat', sans-serif; }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center justify-start py-10">
-  <h1 class="text-3xl font-bold mb-6">Descarga MP3 de YouTube</h1>
+// index.js - Bot de WhatsApp con Baileys
+// Ejecutar con: node index.js
+// Compatible con Replit — usa require (CommonJS)
 
-  <div class="w-full max-w-lg flex flex-col space-y-4">
-    <input id="youtube-link" type="text" placeholder="Pega el link de YouTube aquí" 
-      class="p-3 rounded-lg text-gray-900 font-medium focus:outline-none">
-    <button id="convert-btn" class="bg-green-600 hover:bg-green-700 py-3 rounded-lg font-bold transition">
-      Convertir a MP3
-    </button>
-  </div>
+const { Boom } = require('@hapi/boom');
+const { makeWASocket, DisconnectReason, useSingleFileAuthState } = require('@adiwajshing/baileys');
+const fs = require('fs');
 
-  <div id="download-area" class="mt-6 w-full max-w-lg flex flex-col items-center space-y-4 hidden">
-    <p class="text-green-400 font-semibold" id="status-msg">Procesando...</p>
-    <a id="download-link" href="#" target="_blank" 
-      class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-bold transition">
-      Descargar MP3
-    </a>
-  </div>
+// Ruta del archivo de sesión
+const SESSION_FILE_PATH = './session/auth_info.json';
 
-  <script>
-    const convertBtn = document.getElementById('convert-btn');
-    const linkInput = document.getElementById('youtube-link');
-    const downloadArea = document.getElementById('download-area');
-    const downloadLink = document.getElementById('download-link');
-    const statusMsg = document.getElementById('status-msg');
+// Crear carpeta 'session' si no existe
+if (!fs.existsSync('./session')) {
+    fs.mkdirSync('./session', { recursive: true });
+}
 
-    convertBtn.addEventListener('click', () => {
-      const youtubeURL = linkInput.value.trim();
-      if(!youtubeURL) return alert("Ingresa un link de YouTube");
+// Estado de autenticación (guarda/recupera sesión)
+const { state, saveState } = useSingleFileAuthState(SESSION_FILE_PATH);
 
-      // Mostrar sección de descarga
-      downloadArea.classList.remove('hidden');
-      statusMsg.textContent = "Procesando...";
-
-      // API demo para conversión (solo fines educativos)
-      fetch(`https://yt1s.com/api/ajaxSearch/index`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-        body: `q=${encodeURIComponent(youtubeURL)}&vt=home`
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data?.links?.mp3?.length) {
-          // Tomamos el primer enlace MP3 disponible
-          downloadLink.href = data.links.mp3[0].dlink;
-          downloadLink.download = `${data.title}.mp3`;
-          statusMsg.textContent = `Listo para descargar: ${data.title}`;
-        } else {
-          statusMsg.textContent = "No se pudo procesar el link";
-          downloadLink.href = "#";
+// Función principal para conectar el bot
+async function connectToWhatsApp() {
+    const sock = makeWASocket({
+        auth: state,
+        printQRInTerminal: true, // ← ¡Esto muestra el QR en la consola!
+        logger: {
+            info: () => {},   // Opcional: silencia logs innecesarios
+            warn: () => {},
+            error: () => {}
         }
-      })
-      .catch(err => {
-        statusMsg.textContent = "Error al procesar: " + err.message;
-        downloadLink.href = "#";
-      });
     });
-  </script>
-</body>
-</html>
+
+    // Guardar sesión cuando se actualice
+    sock.ev.on('creds.update', saveState);
+
+    // Manejar eventos de conexión
+    sock.ev.on('connection.update', (update) => {
+        const { connection, lastDisconnect } = update;
+
+        if (connection === 'close') {
+            // Reconectar si no fue cerrado por logout
+            const shouldReconnect = 
+                lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
+            
+            if (shouldReconnect) {
+                console.log('🔁 Reconectando...');
+                connectToWhatsApp();
+            } else {
+                console.log('🚫 Sesión cerrada. Borra ./session/auth_info.json y reinicia para escanear QR de nuevo.');
+            }
+        } else if (connection === 'open') {
+            console.log('✅ ¡Bot conectado y funcionando!');
+        }
+        // El QR se imprime automáticamente gracias a printQRInTerminal: true
+    });
+
+    // Escuchar mensajes entrantes
+    sock.ev.on('messages.upsert', async ({ messages, type }) => {
+        if (type === 'notify') {
+            for (const msg of messages) {
+                // Aquí luego conectaremos el handler y plugins
+                console.log('📩 Mensaje recibido:', msg.content ? msg.content.slice(0, 50) + '...' : msg);
+            }
+        }
+    });
+
+    return sock;
+}
+
+// Iniciar el bot
+console.log('🤖 Iniciando bot...');
+connectToWhatsApp().catch(console.error);
